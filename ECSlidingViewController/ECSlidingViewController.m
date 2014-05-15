@@ -940,4 +940,53 @@
     self.coordinatorInteractionEnded = handler;
 }
 
+#pragma mark - UIStateRestoring
+
+- (void)encodeRestorableStateWithCoder:(NSCoder *)coder
+{
+    [coder encodeObject:self.topViewController forKey:@"topViewController"];
+    [coder encodeObject:self.underLeftViewController forKey:@"underLeftViewController"];
+    [coder encodeObject:self.underRightViewController forKey:@"underRightViewController"];
+    [coder encodeInteger:self.currentTopViewPosition forKey:@"currentTopViewPosition"];
+    
+    [super encodeRestorableStateWithCoder:coder];
+}
+
+- (void)decodeRestorableStateWithCoder:(NSCoder *)coder
+{
+    [super decodeRestorableStateWithCoder:coder];
+    
+    UIViewController *viewController;
+    viewController = [coder decodeObjectForKey:@"topViewController"];
+    if (![viewController.restorationIdentifier isEqualToString:self.topViewController.restorationIdentifier]) {
+        self.topViewController = viewController;
+    }
+    
+    viewController = [coder decodeObjectForKey:@"underLeftViewController"];
+    if ([viewController.restorationIdentifier isEqualToString:self.underLeftViewController.restorationIdentifier] == NO) {
+        self.underLeftViewController = viewController;
+    }
+    
+    viewController = [coder decodeObjectForKey:@"underRightViewController"];
+    if ([viewController.restorationIdentifier isEqualToString:self.underRightViewController.restorationIdentifier] == NO) {
+        self.underRightViewController = viewController;
+    }
+    
+    ECSlidingViewControllerTopViewPosition currentTopViewPosition = [coder decodeIntegerForKey:@"currentTopViewPosition"];
+    switch (currentTopViewPosition) {
+        case ECSlidingViewControllerTopViewPositionAnchoredLeft:
+            [self anchorTopViewToLeftAnimated:NO];
+            break;
+        case ECSlidingViewControllerTopViewPositionAnchoredRight:
+            [self anchorTopViewToRightAnimated:NO];
+            break;
+        case ECSlidingViewControllerTopViewPositionCentered:
+            [self resetTopViewAnimated:NO];
+            break;
+            
+        default:
+            break;
+    }
+}
+
 @end
