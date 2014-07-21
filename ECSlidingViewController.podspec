@@ -6,7 +6,7 @@ Pod::Spec.new do |s|
   s.homepage     = "https://github.com/ECSlidingViewController/ECSlidingViewController"
   s.license      = 'MIT'
   s.author       = { "Mike Enriquez" => "mike@enriquez.me" }
-  s.source       = { :git => "https://github.com/ECSlidingViewController/ECSlidingViewController.git", :tag => "2.0.4" }
+  s.source       = { :git => "https://github.com/gofullstack/ECSlidingViewController.git", :tag => "2.0.4" }
 
   s.platform     = :ios, '6.0'
   s.requires_arc = true
