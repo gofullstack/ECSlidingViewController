@@ -457,17 +457,19 @@
     
     CGRect containerViewFrame = self.view.bounds;
     
-    if (!(self.topViewController.edgesForExtendedLayout & UIRectEdgeTop)) {
-        CGFloat topLayoutGuideLength = [self.topLayoutGuide length];
-        containerViewFrame.origin.y     = topLayoutGuideLength;
-        containerViewFrame.size.height -= topLayoutGuideLength;
-    }
+    if([self.topViewController respondsToSelector:@selector(edgesForExtendedLayout)]) {
+        if (!(self.topViewController.edgesForExtendedLayout & UIRectEdgeTop)) {
+            CGFloat topLayoutGuideLength = [self.topLayoutGuide length];
+            containerViewFrame.origin.y     = topLayoutGuideLength;
+            containerViewFrame.size.height -= topLayoutGuideLength;
+        }
     
-    if (!(self.topViewController.edgesForExtendedLayout & UIRectEdgeBottom)) {
-        CGFloat bottomLayoutGuideLength = [self.bottomLayoutGuide length];
-        containerViewFrame.size.height -= bottomLayoutGuideLength;
+        if (!(self.topViewController.edgesForExtendedLayout & UIRectEdgeBottom)) {
+            CGFloat bottomLayoutGuideLength = [self.bottomLayoutGuide length];
+            containerViewFrame.size.height -= bottomLayoutGuideLength;
+        }
     }
-    
+        
     switch(position) {
         case ECSlidingViewControllerTopViewPositionCentered:
             return containerViewFrame;
@@ -489,19 +491,23 @@
     
     CGRect containerViewFrame = self.view.bounds;
     
-    if (!(self.underLeftViewController.edgesForExtendedLayout & UIRectEdgeTop)) {
-        CGFloat topLayoutGuideLength    = [self.topLayoutGuide length];
-        containerViewFrame.origin.y     = topLayoutGuideLength;
-        containerViewFrame.size.height -= topLayoutGuideLength;
-    }
+    if([self.topViewController respondsToSelector:@selector(edgesForExtendedLayout)]) {
     
-    if (!(self.underLeftViewController.edgesForExtendedLayout & UIRectEdgeBottom)) {
-        CGFloat bottomLayoutGuideLength = [self.bottomLayoutGuide length];
-        containerViewFrame.size.height -= bottomLayoutGuideLength;
-    }
-    
-    if (!(self.underLeftViewController.edgesForExtendedLayout & UIRectEdgeRight)) {
-        containerViewFrame.size.width = self.anchorRightRevealAmount;
+        if (!(self.underLeftViewController.edgesForExtendedLayout & UIRectEdgeTop)) {
+            CGFloat topLayoutGuideLength    = [self.topLayoutGuide length];
+            containerViewFrame.origin.y     = topLayoutGuideLength;
+            containerViewFrame.size.height -= topLayoutGuideLength;
+        }
+        
+        if (!(self.underLeftViewController.edgesForExtendedLayout & UIRectEdgeBottom)) {
+            CGFloat bottomLayoutGuideLength = [self.bottomLayoutGuide length];
+            containerViewFrame.size.height -= bottomLayoutGuideLength;
+        }
+        
+        if (!(self.underLeftViewController.edgesForExtendedLayout & UIRectEdgeRight)) {
+            containerViewFrame.size.width = self.anchorRightRevealAmount;
+        }
+
     }
     
     return containerViewFrame;
@@ -514,20 +520,24 @@
     
     CGRect containerViewFrame = self.view.bounds;
     
-    if (!(self.underRightViewController.edgesForExtendedLayout & UIRectEdgeTop)) {
-        CGFloat topLayoutGuideLength    = [self.topLayoutGuide length];
-        containerViewFrame.origin.y     = topLayoutGuideLength;
-        containerViewFrame.size.height -= topLayoutGuideLength;
-    }
+    if([self.topViewController respondsToSelector:@selector(edgesForExtendedLayout)]) {
     
-    if (!(self.underRightViewController.edgesForExtendedLayout & UIRectEdgeBottom)) {
-        CGFloat bottomLayoutGuideLength = [self.bottomLayoutGuide length];
-        containerViewFrame.size.height -= bottomLayoutGuideLength;
-    }
-    
-    if (!(self.underRightViewController.edgesForExtendedLayout & UIRectEdgeLeft)) {
-        containerViewFrame.origin.x   = self.anchorLeftPeekAmount;
-        containerViewFrame.size.width = self.anchorLeftRevealAmount;
+        if (!(self.underRightViewController.edgesForExtendedLayout & UIRectEdgeTop)) {
+            CGFloat topLayoutGuideLength    = [self.topLayoutGuide length];
+            containerViewFrame.origin.y     = topLayoutGuideLength;
+            containerViewFrame.size.height -= topLayoutGuideLength;
+        }
+        
+        if (!(self.underRightViewController.edgesForExtendedLayout & UIRectEdgeBottom)) {
+            CGFloat bottomLayoutGuideLength = [self.bottomLayoutGuide length];
+            containerViewFrame.size.height -= bottomLayoutGuideLength;
+        }
+        
+        if (!(self.underRightViewController.edgesForExtendedLayout & UIRectEdgeLeft)) {
+            containerViewFrame.origin.x   = self.anchorLeftPeekAmount;
+            containerViewFrame.size.width = self.anchorLeftRevealAmount;
+        }
+
     }
     
     return containerViewFrame;
